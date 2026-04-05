@@ -24,8 +24,11 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'echo Deploying application...'
+                sshagent(['ec2-key']){
+			sh 'scp -o StrictHostKeyChecking=no calculator.py ubuntu@13.62.56.248/home/ubuntu/'
+		}
             }
         }
+
     }
 }
